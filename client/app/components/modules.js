@@ -1,7 +1,7 @@
 angular.module('App.components', [
-  'App.components.home',
+  'App.components.table',
   'App.components.seedHelp'
 ]);
 
-angular.module('App.components.home', []);
+angular.module('App.components.table', []);
 angular.module('App.components.seedHelp', []);
