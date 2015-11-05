@@ -1,7 +1,38 @@
 <div class="container">
-  <div class="jumbotron">
-    <h1>Home page</h1>
-    <p>{{text.title}}</p>
-    <p><a class="btn btn-primary btn-lg" href="#/seed-help" role="button">Go to the test page »</a></p>
+  <div class="panel panel-primary panel-table">
+    <div class="panel-heading">People</div>
+    <div class="panel-body">
+      <form action="#" class="form-inline" ng-submit="vm.addPerson($event, vm.form.name, vm.form.role)">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Add new person" ng-model="vm.form.name">
+        </div>
+        <div class="checkbox" ng-repeat="role in vm.roles">
+          <label><input type="checkbox" ng-model="vm.form.role"> {{role.title}}</label>
+        </div>
+        <button type="submit" class="btn btn-success">Add</button>
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th ng-repeat="role in vm.roles">
+                  {{role.title}}
+                </th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="person in vm.people">
+                <td>{{person.name}}</td>
+                <td ng-repeat="role in vm.roles">
+                  {{person.role}}
+                </td>
+                <td>Delete</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

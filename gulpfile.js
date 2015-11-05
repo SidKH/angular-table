@@ -43,7 +43,7 @@
       .pipe(sourcemaps.init({loadMaps: true}))
       .pipe(concat('app.js'))
       .pipe(ngAnnotate())
-      .pipe(uglify().on('error', gutil.log))
+      //.pipe(uglify().on('error', gutil.log))
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./client/build/'));
   });

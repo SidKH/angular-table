@@ -4,9 +4,9 @@
   angular.module('App')
     .config(function ($routeProvider, Config, Roles) {
       $routeProvider
-        .when('/all', {
+        .when('/home', {
           templateUrl: Config.rootPath + 'components/table/table-view.html',
-          controller: 'table',
+          controller: 'table as vm',
           resolve: {
             role: function () {
               return false;
@@ -18,7 +18,7 @@
           controller: 'seedHelp'
         })
         .otherwise({
-          redirectTo: '/all'
+          redirectTo: '/home'
         });
 
       /**
@@ -28,7 +28,7 @@
       Roles.forEach(function (role) {
         $routeProvider.when('/' + role.key, {
           templateUrl: Config.rootPath + 'components/table/table-view.html',
-          controller: 'table',
+          controller: 'table as vm',
           resolve: {
             role: function () {
               return role;
