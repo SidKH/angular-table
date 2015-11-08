@@ -3,5 +3,5 @@ angular.module('App.components', [
   'App.components.seedHelp'
 ]);
 
-angular.module('App.components.table', []);
+angular.module('App.components.table', ['ngStorage']);
 angular.module('App.components.seedHelp', []);

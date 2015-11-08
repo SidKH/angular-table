@@ -1,15 +1,23 @@
 (function () {
   'use strict';
   angular.module('App.components.table')
-    .service('Persons', function () {
-      var People = [];
+    .service('Persons', function ($localStorage) {
+
+      if (!$localStorage.people) { $localStorage.people = []; }
+      if (!$localStorage.lastId) { $localStorage.lastId = 0; }
+
       var srvc = {
         addPerson: function (name, role) {
-          People.push({name: name, role: role});
-          return People;
+          $localStorage.people.push({name: name, role: role, id: $localStorage.lastId++});
+          return $localStorage.people;
+        },
+        deletePerson: function (person) {
+          var splicedIndex = $localStorage.people.indexOf(person);
+          $localStorage.people.splice(splicedIndex, 1);
+          return $localStorage.people;
         },
         getPeople: function () {
-          return People;
+          return $localStorage.people || [];
         }
       };
       return srvc;
