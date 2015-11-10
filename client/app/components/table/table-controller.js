@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('App.components.table')
-	  .controller('table', function (Roles, role, Persons, $scope) {
+	  .controller('table', function (Roles, role, Persons, $location) {
       var vm = this;
 	    vm.role = role;
       vm.roles = Roles;

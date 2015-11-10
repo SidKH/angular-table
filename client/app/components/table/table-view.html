@@ -16,8 +16,8 @@
           <table class="table table-hover table-bordered">
             <thead>
               <tr>
-                <th cell-sort="'name'">Name</th>
-                <th ng-repeat="role in vm.roles" cell-sort="'role.' + role.key + ' !== true'">
+                <th cell-sort="'name'" class="noselect">Name</th>
+                <th ng-repeat="role in vm.roles" cell-sort="'role.' + role.key + ' !== true'" class="noselect">
                   {{role.title}}
                 </th>
                 <th class="delete">Delete</th>
@@ -27,7 +27,7 @@
               <tr ng-repeat="person in vm.people | orderBy: vm.sort.expression: vm.sort.toggle">
                 <td>{{person.name}}</td>
                 <td ng-repeat="role in vm.roles">
-                  <input type="checkbox" ng-model="person.role[role.key]"></input>
+                  <input type="checkbox" ng-model="person.role[role.key]" />
                 </td>
                 <td ng-class="{confirmation: vm.delPerson[$index]}" class="delete">
                   <button class="btn btn-warning btn-xs"
@@ -41,6 +41,7 @@
             </tbody>
           </table>
         </div>
+        <div btn-filter="vm.roles"></div>
       </form>
     </div>
   </div>
