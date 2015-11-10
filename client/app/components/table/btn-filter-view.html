@@ -1,0 +1,5 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-default"
+    ng-class="{'btn-primary': role.active}"
+    ng-repeat="role in vm.croles" ng-click="vm.changeRoute(role)">{{role.title}}</button>
+</div>
