@@ -8,7 +8,7 @@
 
       var srvc = {
         addPerson: function (name, role) {
-          $localStorage.people.push({name: name, role: role, id: $localStorage.lastId++});
+          $localStorage.people.push({name: name, role: angular.copy(role), id: $localStorage.lastId++});
           return $localStorage.people;
         },
         deletePerson: function (person) {
@@ -18,6 +18,10 @@
         },
         getPeople: function () {
           return $localStorage.people || [];
+        },
+        cleanLS: function () {
+          $localStorage.people = [];
+          return $localStorage.people;
         }
       };
       return srvc;

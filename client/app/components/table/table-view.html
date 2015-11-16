@@ -5,44 +5,47 @@
       <form name="vm.formAdd" novalidate class="form-inline"
         ng-submit="vm.addPerson($event, vm.form.name, vm.form.role)">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Add new person"
+          <input type="text" focus-when="vm.focusName" class="form-control" placeholder="Add new person"
             ng-model="vm.form.name" ng-minlength="1" ng-required="true">
         </div>
-        <div class="checkbox" ng-repeat="role in vm.roles">
+        <div class="checkbox"
+          ng-repeat="role in vm.roles"
+          ng-init="vm.form.role[role.key] = vm.role.key == role.key">
           <label><input type="checkbox" ng-model="vm.form.role[role.key]"> {{role.title}}</label>
         </div>
         <button type="submit" class="btn btn-success">Add</button>
-        <div class="table-responsive" ng-show="vm.people.length">
-          <table class="table table-hover table-bordered">
-            <thead>
-              <tr>
-                <th cell-sort="'name'" class="noselect">Name</th>
-                <th ng-repeat="role in vm.roles" cell-sort="'role.' + role.key + ' !== true'" class="noselect">
-                  {{role.title}}
-                </th>
-                <th class="delete">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="person in vm.people | orderBy: vm.sort.expression: vm.sort.toggle">
-                <td>{{person.name}}</td>
-                <td ng-repeat="role in vm.roles">
-                  <input type="checkbox" ng-model="person.role[role.key]" />
-                </td>
-                <td ng-class="{confirmation: vm.delPerson[$index]}" class="delete">
-                  <button class="btn btn-warning btn-xs"
-                    ng-click="vm.setDelIndex($index)" ng-if="!vm.delPerson[$index]">Delete</button>
-                  <div class="confirm" ng-if="vm.delPerson[$index]">
-                    <button class="btn btn-success btn-xs" ng-click="vm.deletePerson(person)">Yes</button>
-                    <button class="btn btn-danger btn-xs" ng-click="vm.resetDelIndex()">No</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div btn-filter="vm.roles"></div>
       </form>
+      <div btn-filter="vm.roles"></div>
+      <div class="table-responsive" ng-show="vm.people.length">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th cell-sort="'name'" class="noselect">Name</th>
+              <th ng-repeat="role in vm.roles" cell-sort="'role.' + role.key + ' !== true'" class="noselect">
+                {{role.title}}
+              </th>
+              <th class="delete">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="person in vm.people | filter: vm.filterExp | orderBy: vm.sort.expression: vm.sort.toggle">
+              <td>{{person.name}}</td>
+              <td ng-repeat="role in vm.roles">
+                <input type="checkbox" ng-model="person.role[role.key]" />
+              </td>
+              <td ng-class="{confirmation: vm.delPerson[$index]}" class="delete">
+                <button class="btn btn-warning btn-xs"
+                  ng-click="vm.setDelIndex($index)" ng-if="!vm.delPerson[$index]">Delete</button>
+                <div class="confirm" ng-if="vm.delPerson[$index]">
+                  <button class="btn btn-success btn-xs" ng-click="vm.deletePerson(person)">Yes</button>
+                  <button class="btn btn-danger btn-xs" ng-click="vm.resetDelIndex()">No</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-warning" ng-click="vm.clear()">Clear Table</button>
+      </div>
     </div>
   </div>
 </div>

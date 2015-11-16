@@ -2,22 +2,24 @@
   'use strict';
 
   angular.module('App.components.table')
-	  .controller('table', function (Roles, role, Persons, $location) {
+	  .controller('table', function (Roles, role, Persons) {
       var vm = this;
 	    vm.role = role;
       vm.roles = Roles;
       vm.people = Persons.getPeople();
       vm.delPerson = [];
+      vm.filterExp = setFilterExpression(vm.role.key);
+      vm.focusName = false;
       vm.sort = {
         expression: 'name',
         toggle: false
-      }
+      };
       
       vm.addPerson = function ($event, name, role) {
         if (!vm.formAdd.$valid) { return; }
         $event.preventDefault();
         vm.people = Persons.addPerson(name, role);
-        clearForm();
+        resetForm();
       };
 
       vm.setDelIndex = function (index) {
@@ -34,8 +36,23 @@
         vm.resetDelIndex();
       };
 
-      function clearForm() {
-        vm.form = {};
+      vm.clear = function () {
+        vm.people = Persons.cleanLS();
+      }
+
+      function setNameFocus() {
+        vm.focusName = true;
+      }
+
+      function resetForm() {
+        vm.form.name = '';
+        setNameFocus();
+      }
+
+      function setFilterExpression(key) {
+        var out = {role: {}};
+        key ? out.role[key] = true : out = '';
+        return out;
       }
 
 	  });

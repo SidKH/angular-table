@@ -17,7 +17,7 @@
         checkActive();
         vm.changeRoute = function (role) {
           if (currentLoc() === role.key) {
-            return;
+            $location.path('/home');
           } else {
             $location.path('/' + role.key);
           }
